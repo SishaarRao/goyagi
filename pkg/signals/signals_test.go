@@ -1,0 +1,21 @@
+// pkg/signals/signals_test.go
+
+package signals
+
+import (
+	"syscall"
+	"testing"
+	"time"
+)
+
+func TestSetup(t *testing.T) {
+	ch := Setup()
+
+	syscall.Kill(syscall.Getpid(), syscall.SIGINT)
+
+	select {
+	case <-time.After(2 * time.Second):
+		t.Error("timed out waiting for a signal")
+	case <-ch:
+	}
+}
