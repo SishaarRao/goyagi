@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/SishaarRao/goyagi/pkg/application"
+
 	"github.com/SishaarRao/goyagi/pkg/health"
 	"github.com/SishaarRao/goyagi/pkg/signals"
 	"github.com/labstack/echo"
@@ -14,7 +16,7 @@ import (
 )
 
 // New returns a new HTTP server with the registered routes
-func New() *http.Server {
+func New(app application.App) *http.Server {
 	log := logger.New()
 
 	e := echo.New()
@@ -22,7 +24,7 @@ func New() *http.Server {
 	health.RegisterRoutes(e)
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", 3000),
+		Addr:    fmt.Sprintf(":%d", app.Config.Port),
 		Handler: e,
 	}
 

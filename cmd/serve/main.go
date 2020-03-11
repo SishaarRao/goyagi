@@ -5,6 +5,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/SishaarRao/goyagi/pkg/application"
 	"github.com/SishaarRao/goyagi/pkg/server"
 	"github.com/lob/logger-go"
 )
@@ -12,7 +13,9 @@ import (
 func main() {
 	log := logger.New()
 
-	srv := server.New()
+	app := application.New()
+
+	srv := server.New(app)
 
 	log.Info("Server Started")
 

@@ -7,13 +7,18 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/SishaarRao/goyagi/pkg/application"
+
 	"github.com/stretchr/testify/assert"
 
 	"github.com/stretchr/testify/require"
 )
 
 func TestNew(t *testing.T) {
-	srv := New()
+	app := application.New()
+	require.NotNil(t, app, "unexpected error when creating application")
+
+	srv := New(app)
 
 	t.Run("serves registered endpoint", func(tt *testing.T) {
 		w := httptest.NewRecorder()
