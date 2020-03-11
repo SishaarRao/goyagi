@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/SishaarRao/goyagi/pkg/application"
+	"github.com/SishaarRao/goyagi/pkg/movies"
 
 	"github.com/SishaarRao/goyagi/pkg/health"
 	"github.com/SishaarRao/goyagi/pkg/signals"
@@ -22,6 +23,8 @@ func New(app application.App) *http.Server {
 	e := echo.New()
 
 	health.RegisterRoutes(e)
+
+	movies.RegisterRoutes(e, app)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", app.Config.Port),
