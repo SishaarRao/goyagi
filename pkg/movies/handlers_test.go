@@ -32,13 +32,30 @@ func TestListHandler(t *testing.T) {
 	})
 }
 
+func TestCreateHandler(t *testing.T) {
+	h := newHandler(t)
+
+	t.Run("creates movie on success", func(tt *testing.T) {
+		c, rr := newContext(tt, []byte(`{ "title": "Sishaar", "release_date": "2019-07-05T00:00:00Z" }`))
+
+		err := h.createHandler(c)
+		assert.NoError(tt, err)
+		assert.Equal(tt, http.StatusOK, rr.Code)
+
+		var response model.Movie
+		err = json.Unmarshal(rr.Body.Bytes(), &response)
+		require.NoError(tt, err)
+		assert.True(tt, response.Title == "Sishaar")
+	})
+}
+
 func TestRetrieveHandler(t *testing.T) {
 	h := newHandler(t)
 
 	t.Run("retrieves movie on success", func(tt *testing.T) {
 		c, rr := newContext(tt, nil)
 		c.SetParamNames("id")
-		c.SetParamValues("1")
+		c.SetParamValues("21")
 
 		err := h.retrieveHandler(c)
 		assert.NoError(tt, err)
@@ -48,10 +65,10 @@ func TestRetrieveHandler(t *testing.T) {
 		err = json.Unmarshal(rr.Body.Bytes(), &response)
 		require.NoError(tt, err)
 		assert.Equal(tt, response.ID, 1)
-		assert.Equal(tt, response.Title, "Iron Man")
+		assert.Equal(tt, response.Title, "Captain Marvel")
 	})
 
-	t.Run("returns 404 if user isn't found", func(tt *testing.T) {
+	t.Run("returns 404 if movie isn't found", func(tt *testing.T) {
 		c, _ := newContext(tt, nil)
 		c.SetParamNames("id")
 		c.SetParamValues("9999")
