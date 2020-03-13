@@ -15,8 +15,8 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	app := application.New()
-	require.NotNil(t, app, "unexpected error when creating application")
+	app, err := application.New()
+	require.Nil(t, err, "unexpected error when creating application")
 
 	srv := New(app)
 

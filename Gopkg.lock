@@ -10,12 +10,38 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:f9448bfab8ebe44e3d91e4e4475cf92d60789a614652f361df4e41972c9d5caf"
+  name = "github.com/go-pg/pg"
+  packages = [
+    ".",
+    "internal",
+    "internal/iszero",
+    "internal/parser",
+    "internal/pool",
+    "internal/struct_filter",
+    "internal/tag",
+    "orm",
+    "types",
+  ]
+  pruneopts = "UT"
+  revision = "1d957cb20f319c4a1e2db7d345824c12aefe5943"
+  version = "v8.0.6"
+
+[[projects]]
   digest = "1:bed9d72d596f94e65fff37f4d6c01398074a6bb1c3f3ceff963516bd01db6ff5"
   name = "github.com/gofrs/uuid"
   packages = ["."]
   pruneopts = "UT"
   revision = "6b08a5c5172ba18946672b49749cde22873dd7c2"
   version = "v3.2.0"
+
+[[projects]]
+  digest = "1:01ed62f8f4f574d8aff1d88caee113700a2b44c42351943fa73cc1808f736a50"
+  name = "github.com/jinzhu/inflection"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f5c5f50e6090ae76a29240b61ae2a90dd810112e"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:8466ad3bbf246e5f511de17d7d66089aa5388be2272cee17a71fe5d1ccda4c64"
@@ -77,6 +103,14 @@
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:32168f26202deebe30342f56b9daf17fba7ad3dbf88a880fb6f3fdfde3bb787e"
+  name = "github.com/robinjoseph08/go-pg-migrations"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a8e7a231a09f0cc7218d7196356568e808de3e4e"
+  version = "v1.0.1"
+
+[[projects]]
   digest = "1:ac807e298762bb5f57e857f7a6860a953a89e15301f245c9836b34e388991d07"
   name = "github.com/rs/zerolog"
   packages = [
@@ -117,11 +151,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9a9cf26f20c88b890e03544ed6fc8b04f59f6d618e32a4de2b4b23f61d344580"
+  digest = "1:9f1c97be535e523c94d491d7b44ce1a0af5a74a1479dfc96229299f26d3acfc5"
   name = "golang.org/x/crypto"
   packages = [
     "acme",
     "acme/autocert",
+    "pbkdf2",
   ]
   pruneopts = "UT"
   revision = "78000ba7a073cafc0278790f6bce552a0f25850e"
@@ -181,12 +216,24 @@
   revision = "53403b58ad1b561927d19068c655246f2db79d48"
   version = "v2.2.8"
 
+[[projects]]
+  digest = "1:999d566ad1ae4303c456af5a155f7b42401cca4fd33552567ed9dd997b107a08"
+  name = "mellium.im/sasl"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e58e780e1378aa4df5dc705364ff5ae9a4dd1e04"
+  version = "v0.2.1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/go-pg/pg",
+    "github.com/go-pg/pg/orm",
     "github.com/labstack/echo",
     "github.com/lob/logger-go",
+    "github.com/pkg/errors",
+    "github.com/robinjoseph08/go-pg-migrations",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/require",
   ]
