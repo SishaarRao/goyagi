@@ -8,9 +8,9 @@ import (
 	"net/http"
 
 	"github.com/SishaarRao/goyagi/pkg/application"
-	"github.com/SishaarRao/goyagi/pkg/movies"
-
+	"github.com/SishaarRao/goyagi/pkg/binder"
 	"github.com/SishaarRao/goyagi/pkg/health"
+	"github.com/SishaarRao/goyagi/pkg/movies"
 	"github.com/SishaarRao/goyagi/pkg/signals"
 	"github.com/labstack/echo"
 	"github.com/lob/logger-go"
@@ -21,6 +21,9 @@ func New(app application.App) *http.Server {
 	log := logger.New()
 
 	e := echo.New()
+
+	b := binder.New()
+	e.Binder = b
 
 	health.RegisterRoutes(e)
 
