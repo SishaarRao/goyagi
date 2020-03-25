@@ -29,6 +29,8 @@ func New(app application.App) *http.Server {
 
 	movies.RegisterRoutes(e, app)
 
+	e.Use(logger.Middleware())
+
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", app.Config.Port),
 		Handler: e,
