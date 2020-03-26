@@ -9,8 +9,10 @@ import (
 
 	"github.com/SishaarRao/goyagi/pkg/application"
 	"github.com/SishaarRao/goyagi/pkg/binder"
+	"github.com/SishaarRao/goyagi/pkg/errors"
 	"github.com/SishaarRao/goyagi/pkg/health"
 	"github.com/SishaarRao/goyagi/pkg/movies"
+	"github.com/SishaarRao/goyagi/pkg/recovery"
 	"github.com/SishaarRao/goyagi/pkg/signals"
 	"github.com/labstack/echo"
 	"github.com/lob/logger-go"
@@ -30,6 +32,10 @@ func New(app application.App) *http.Server {
 	movies.RegisterRoutes(e, app)
 
 	e.Use(logger.Middleware())
+
+	e.Use(recovery.Middleware())
+
+	errors.RegisterErrorHandler(e, app)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", app.Config.Port),
