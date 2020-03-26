@@ -11,6 +11,7 @@ import (
 	"github.com/SishaarRao/goyagi/pkg/binder"
 	"github.com/SishaarRao/goyagi/pkg/errors"
 	"github.com/SishaarRao/goyagi/pkg/health"
+	"github.com/SishaarRao/goyagi/pkg/metrics"
 	"github.com/SishaarRao/goyagi/pkg/movies"
 	"github.com/SishaarRao/goyagi/pkg/recovery"
 	"github.com/SishaarRao/goyagi/pkg/signals"
@@ -34,6 +35,8 @@ func New(app application.App) *http.Server {
 	e.Use(logger.Middleware())
 
 	e.Use(recovery.Middleware())
+
+	e.Use(metrics.Middleware(app.Metrics))
 
 	errors.RegisterErrorHandler(e, app)
 
